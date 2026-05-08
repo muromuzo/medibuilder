@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBLIV CLINIC × 피오랩스 — 2026 마케팅 전략 제안서</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"/>
+<style>
+:root{
+  --ink:#0B0E0C;
+  --deep:#12160F;
+  --panel:#1C2119;
+  --card:#232920;
+  --olive:#4A6B4C;
+  --sage:#7AA87C;
+  --gold:#C4A87A;
+  --warmgold:#D4B896;
+  --cream:#EDE8DE;
+  --mist:rgba(237,232,222,0.82);
+  --border:rgba(196,168,122,0.15);
+  --bordersage:rgba(122,168,124,0.18);
+  --accent:#E8C88A;
+  --rust:#B87050;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:17px}
+body{
+  background:var(--ink);
+  color:var(--cream);
+  font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* LOADER */
+#loader{
+  position:fixed;inset:0;background:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:2rem;z-index:9999;
+  transition:opacity 0.9s ease,visibility 0.9s ease;
+}
+#loader.gone{opacity:0;visibility:hidden;pointer-events:none}
+.l-word{
+  font-size:clamp(1rem,2vw,1.6rem);
+  font-weight:200;letter-spacing:.5em;
+  color:var(--gold);text-transform:uppercase;
+}
+.l-bar{width:220px;height:1px;background:rgba(196,168,122,.15);overflow:hidden;position:relative}
+.l-bar::after{
+  content:'';position:absolute;left:-100%;top:0;height:100%;width:100%;
+  background:linear-gradient(90deg,transparent,var(--gold),var(--warmgold));
+  animation:barFill 2.2s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes barFill{0%{left:-100%}100%{left:0}}
+.l-sub{font-size:.65rem;letter-spacing:.3em;color:var(--mist);text-transform:uppercase;font-weight:300}
+
+/* CURSOR */
+.cursor-dot{
+  width:6px;height:6px;background:var(--gold);border-radius:50%;
+  position:fixed;top:0;left:0;pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);transition:background .3s;
+}
+.cursor-ring{
+  width:36px;height:36px;border:1px solid rgba(196,168,122,.5);border-radius:50%;
+  position:fixed;top:0;left:0;pointer-events:none;z-index:9997;
+  transform:translate(-50%,-50%);
+  transition:width .3s,height .3s,border-color .3s;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.4rem 4rem;
+  background:rgba(11,14,12,0);
+  border-bottom:1px solid rgba(196,168,122,0);
+  transition:background .5s,border-color .5s;
+}
+nav.scrolled{
+  background:rgba(11,14,12,.92);
+  border-bottom-color:var(--border);
+  backdrop-filter:blur(12px);
+}
+.nav-brand{font-size:.75rem;font-weight:600;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+.nav-links{display:flex;gap:2.5rem}
+.nav-links a{
+  font-size:.65rem;letter-spacing:.15em;color:var(--mist);text-transform:uppercase;
+  text-decoration:none;font-weight:400;transition:color .3s;
+}
+.nav-links a:hover{color:var(--gold)}
+
+/* TICKER */
+.ticker{overflow:hidden;white-space:nowrap;background:var(--gold);padding:.6rem 0}
+.ticker-t{display:inline-flex;animation:tick 35s linear infinite}
+.ticker-t span{
+  font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink);font-weight:700;padding:0 2rem;
+}
+.ticker-t span::before{content:'◆';margin-right:2rem;font-size:.45rem;opacity:.6}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* LAYOUT */
+.wrap{max-width:1520px;margin:0 auto;padding:0 5rem}
+@media(max-width:1024px){.wrap{padding:0 2.5rem}}
+@media(max-width:640px){.wrap{padding:0 1.5rem}}
+
+/* SECTION COMMON */
+.sec-label{
+  font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);font-weight:500;margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:.8rem;
+}
+.sec-label::before{content:'';display:block;width:32px;height:1px;background:var(--gold);opacity:.7}
+
+.sec-h{
+  font-size:clamp(2rem,4vw,3.8rem);font-weight:700;
+  letter-spacing:-.03em;line-height:1.08;margin-bottom:1.5rem;
+}
+.sec-p{
+  font-size:1.05rem;line-height:1.95;color:var(--cream);
+  font-weight:300;max-width:520px;opacity:.85;
+}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .75s ease,transform .75s ease}
+.rv.in{opacity:1;transform:translateY(0)}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}.rv.d4{transition-delay:.4s}
+
+/* =================== HERO =================== */
+#hero{
+  min-height:100vh;background:var(--ink);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding-bottom:8rem;position:relative;overflow:hidden;
+}
+.h-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(196,168,122,.03)1px,transparent 1px),
+    linear-gradient(90deg,rgba(196,168,122,.03)1px,transparent 1px);
+  background-size:88px 88px;
+  mask-image:radial-gradient(ellipse 65% 65% at 50% 50%,black,transparent);
+  -webkit-mask-image:radial-gradient(ellipse 65% 65% at 50% 50%,black,transparent);
+}
+.h-orb1{
+  position:absolute;width:800px;height:800px;
+  background:radial-gradient(circle,rgba(74,107,76,.1),transparent 70%);
+  top:-200px;right:-150px;pointer-events:none;
+}
+.h-orb2{
+  position:absolute;width:500px;height:500px;
+  background:radial-gradient(circle,rgba(196,168,122,.06),transparent 70%);
+  bottom:50px;left:80px;pointer-events:none;
+}
+.h-content{position:relative;z-index:2}
+.h-eyebrow{
+  font-size:.68rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:3rem;font-weight:300;
+  opacity:0;animation:fup .8s ease 2.5s forwards;
+}
+.h-title{
+  font-size:clamp(3.5rem,8.5vw,9rem);font-weight:800;
+  line-height:1.0;letter-spacing:-.04em;margin-bottom:3rem;
+}
+.h-line{display:block;overflow:hidden}
+.h-line>span{display:block;transform:translateY(105%)}
+.h-line:nth-child(1)>span{animation:lrv .85s cubic-bezier(.16,1,.3,1) 2.5s forwards}
+.h-line:nth-child(2)>span{animation:lrv .85s cubic-bezier(.16,1,.3,1) 2.65s forwards}
+.h-line:nth-child(3)>span{animation:lrv .85s cubic-bezier(.16,1,.3,1) 2.8s forwards}
+.h-hl{color:var(--gold)}
+@keyframes lrv{to{transform:translateY(0)}}
+@keyframes fup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.h-meta{
+  display:flex;align-items:center;gap:3rem;flex-wrap:wrap;
+  opacity:0;animation:fup .8s ease 3.1s forwards;
+}
+.h-mi{display:flex;flex-direction:column;gap:.3rem}
+.h-ml{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mist)}
+.h-mv{font-size:.95rem;font-weight:500;color:var(--cream)}
+.h-div{width:1px;height:36px;background:var(--border)}
+@media(max-width:640px){.h-div{display:none}.h-meta{gap:1.5rem}}
+
+/* =================== INTRO =================== */
+#intro{background:var(--deep);padding:10rem 0;border-top:1px solid var(--border)}
+.intro-g{display:grid;grid-template-columns:1fr 1.6fr;gap:7rem;align-items:start}
+.intro-sticky{position:sticky;top:130px}
+.big-n{
+  font-size:clamp(6rem,12vw,12rem);font-weight:900;
+  color:rgba(196,168,122,.07);line-height:1;letter-spacing:-.06em;
+  margin-bottom:.5rem;
+}
+.intro-h{
+  font-size:clamp(1.6rem,3vw,3rem);font-weight:700;
+  letter-spacing:-.025em;line-height:1.15;margin-bottom:2rem;
+}
+.intro-right .sec-p,.intro-right p{color:var(--cream)!important;opacity:.85}
+.sep{width:100%;height:1px;background:var(--border);margin:3rem 0}
+@media(max-width:1024px){
+  .intro-g{grid-template-columns:1fr;gap:3rem}
+  .intro-sticky{position:relative;top:0}
+}
+
+/* =================== CLINICS =================== */
+#clinics{background:var(--ink);padding:10rem 0}
+.cl-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:4rem}
+.cl-card{
+  background:var(--panel);padding:4.5rem 3.5rem;
+  position:relative;overflow:hidden;
+  transition:background .4s;
+}
+.cl-card:hover{background:var(--card)}
+.cl-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--olive),var(--gold));
+  transform:scaleX(0);transform-origin:left;transition:transform .5s;
+}
+.cl-card:hover::before{transform:scaleX(1)}
+.cl-idx{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--sage);margin-bottom:2rem;font-weight:500}
+.cl-name{font-size:clamp(1.6rem,2.8vw,2.4rem);font-weight:700;letter-spacing:-.025em;margin-bottom:.5rem;line-height:1.1}
+.cl-loc{font-size:.75rem;color:var(--sage);letter-spacing:.1em;margin-bottom:2rem}
+.cl-desc{font-size:1rem;line-height:1.9;color:var(--cream);opacity:.82;font-weight:300;margin-bottom:2.5rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.tag{
+  font-size:.72rem;letter-spacing:.07em;padding:.32rem .85rem;
+  border:1px solid var(--border);color:var(--mist);text-transform:uppercase;font-weight:400;
+}
+.tag.on{border-color:var(--gold);color:var(--gold);background:rgba(196,168,122,.05)}
+@media(max-width:768px){.cl-grid{grid-template-columns:1fr}}
+
+/* =================== DATA =================== */
+#data{background:var(--deep);padding:10rem 0;border-top:1px solid var(--border)}
+.data-hd{display:grid;grid-template-columns:1fr 1fr;gap:5rem;margin-bottom:5rem;align-items:start}
+.rank-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:4rem}
+.rk{background:var(--panel);padding:3rem 2.5rem}
+.rk-n{
+  font-size:clamp(3rem,5vw,5rem);font-weight:900;
+  line-height:1;letter-spacing:-.06em;color:var(--gold);margin-bottom:.5rem;
+}
+.rk-n.dim{color:rgba(196,168,122,.3)}
+.rk-n .suf{font-size:1.2rem;font-weight:500}
+.rk-kw{font-size:.95rem;font-weight:600;color:var(--cream);margin-bottom:.3rem}
+.rk-vol{font-size:.8rem;color:var(--mist);letter-spacing:.05em}
+.rk-note{font-size:.75rem;color:var(--sage);display:inline-block;margin-top:.3rem;letter-spacing:.05em}
+
+/* Table */
+.kw-table{width:100%;border-collapse:collapse;margin-top:2rem}
+.kw-table th{
+  font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);font-weight:500;padding:1rem 1.2rem;
+  text-align:left;border-bottom:1px solid var(--border);
+}
+.kw-table td{
+  font-size:.95rem;padding:1.1rem 1.2rem;color:var(--cream);
+  border-bottom:1px solid rgba(196,168,122,.09);font-weight:300;opacity:.9;
+}
+.kw-table tr:hover td{background:rgba(196,168,122,.03)}
+.kw-table .tot{color:var(--gold);font-weight:600}
+.vbar{display:block;height:3px;background:var(--sage);border-radius:2px;margin-top:4px;min-width:2px;opacity:.7}
+
+@media(max-width:1024px){.data-hd,.rank-row{grid-template-columns:1fr;gap:2rem}}
+@media(max-width:640px){.rank-row{grid-template-columns:1fr 1fr}}
+
+/* =================== ISSUES =================== */
+#issues{background:var(--ink);padding:10rem 0}
+.is-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:4rem}
+.is-card{
+  background:var(--panel);padding:3rem 2.5rem;
+  border-left:2px solid transparent;
+  transition:border-color .4s,background .4s;
+}
+.is-card:hover{border-left-color:var(--gold);background:var(--deep)}
+.is-badge{
+  display:inline-block;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:.22rem .65rem;background:rgba(196,168,122,.08);
+  color:var(--gold);border:1px solid var(--border);margin-bottom:1.2rem;
+}
+.is-ico{font-size:1.4rem;margin-bottom:1rem}
+.is-h{font-size:1.1rem;font-weight:600;margin-bottom:.7rem;color:var(--cream)}
+.is-p{font-size:.95rem;line-height:1.85;color:var(--cream);opacity:.85;font-weight:300}
+@media(max-width:1024px){.is-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.is-grid{grid-template-columns:1fr}}
+
+/* =================== STRATEGY =================== */
+.strat{padding:10rem 0;border-top:1px solid var(--border)}
+.strat.dark{background:var(--deep)}
+.strat.light{background:var(--ink)}
+.strat-hd{display:grid;grid-template-columns:1fr 2fr;gap:6rem;margin-bottom:5rem;align-items:start}
+.strat-idx{font-size:.58rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:.8rem;font-weight:500}
+.strat-h{font-size:clamp(2.2rem,4vw,4rem);font-weight:700;letter-spacing:-.035em;line-height:1.05}
+.strat-h em{font-style:normal;color:var(--gold)}
+.strat-items{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
+.si{
+  background:var(--panel);padding:3rem 2.5rem;
+  position:relative;overflow:hidden;transition:background .3s;
+}
+.si:hover{background:rgba(196,168,122,.04)}
+.si-n{font-size:.6rem;letter-spacing:.25em;color:var(--gold);font-weight:500;margin-bottom:1.3rem}
+.si-h{font-size:1.2rem;font-weight:600;margin-bottom:.9rem;color:var(--cream);line-height:1.3}
+.si-p{font-size:.98rem;line-height:1.9;color:var(--cream);opacity:.85;font-weight:300}
+.si-ul{margin-top:1.3rem;list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.si-ul li{
+  font-size:.92rem;line-height:1.75;color:var(--cream);opacity:.82;
+  padding-left:1.1rem;position:relative;font-weight:300;
+}
+.si-ul li::before{content:'—';position:absolute;left:0;color:var(--sage);font-size:.65rem}
+.si.wide{grid-column:1/-1}
+@media(max-width:1024px){.strat-hd{grid-template-columns:1fr;gap:2.5rem}.strat-items{grid-template-columns:1fr}.si.wide{grid-column:1}}
+
+/* =================== PERSONA =================== */
+#persona{background:var(--ink);padding:10rem 0;border-top:1px solid var(--border)}
+.prs-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:4rem}
+.prs{background:var(--panel);padding:4rem 3.5rem;transition:background .3s}
+.prs:hover{background:var(--deep)}
+.prs-tag{
+  display:inline-block;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;
+  padding:.22rem .65rem;border:1px solid var(--bordersage);
+  color:var(--sage);margin-bottom:1.8rem;
+}
+.prs-n{font-size:1.4rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.3rem}
+.prs-age{font-size:.72rem;color:var(--mist);margin-bottom:2rem;letter-spacing:.05em}
+.prs-attrs{display:flex;flex-direction:column;gap:1.2rem}
+.prs-attr{display:grid;grid-template-columns:72px 1fr;gap:1rem;align-items:start}
+.prs-al{font-size:.6rem;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;padding-top:.1rem;font-weight:500;line-height:1.4}
+.prs-av{font-size:.8rem;line-height:1.75;color:var(--cream);opacity:.8;font-weight:300}
+@media(max-width:768px){.prs-grid{grid-template-columns:1fr}}
+
+/* =================== PACKAGE =================== */
+#pkg{background:var(--deep);padding:10rem 0;border-top:1px solid var(--border)}
+.pkg-card{
+  background:var(--panel);border:1px solid var(--border);
+  padding:5rem 4.5rem;position:relative;overflow:hidden;margin-top:4rem;
+}
+.pkg-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--olive),var(--gold),var(--sage),var(--gold));
+}
+.pkg-name{font-size:clamp(1.6rem,3vw,2.8rem);font-weight:700;letter-spacing:-.03em;margin-bottom:.4rem}
+.pkg-sub{font-size:.82rem;color:var(--sage);letter-spacing:.12em;text-transform:uppercase;margin-bottom:3.5rem}
+.pkg-comps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-bottom:4rem}
+.pkg-comp{
+  padding:2rem 1.8rem;border:1px solid var(--bordersage);
+  background:rgba(122,168,124,.03);
+}
+.pkg-ico{font-size:1.1rem;margin-bottom:.9rem}
+.pkg-cn{font-size:.85rem;font-weight:600;color:var(--cream);margin-bottom:.4rem}
+.pkg-cd{font-size:.92rem;color:var(--cream);opacity:.85;line-height:1.75;font-weight:300}
+.pkg-price-row{display:flex;align-items:flex-end;gap:2.5rem;flex-wrap:wrap}
+.pkg-price{
+  font-size:clamp(2.8rem,5vw,4.5rem);font-weight:900;
+  letter-spacing:-.05em;color:var(--gold);line-height:1;
+}
+.pkg-pl{font-size:.65rem;color:var(--mist);margin-bottom:.4rem;letter-spacing:.1em}
+.pkg-dur{font-size:.8rem;color:var(--sage);margin-bottom:.4rem}
+@media(max-width:768px){.pkg-comps{grid-template-columns:1fr}.pkg-card{padding:3rem 2rem}}
+
+/* =================== CRM =================== */
+#crm{background:var(--ink);padding:10rem 0;border-top:1px solid var(--border)}
+.crm-chs{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:3.5rem}
+.crm-ch{background:var(--panel);padding:2.8rem 2rem;text-align:center;transition:background .3s}
+.crm-ch:hover{background:var(--deep)}
+.crm-ico{font-size:1.7rem;margin-bottom:.9rem}
+.crm-n{font-size:.88rem;font-weight:600;margin-bottom:.4rem}
+.crm-d{font-size:.92rem;color:var(--cream);opacity:.85;line-height:1.7;font-weight:300}
+@media(max-width:768px){.crm-chs{grid-template-columns:1fr 1fr}}
+
+/* =================== GLOBAL =================== */
+#global{background:var(--deep);padding:10rem 0;border-top:1px solid var(--border)}
+.glb-g{display:grid;grid-template-columns:1.3fr 1fr;gap:4rem;margin-top:4rem}
+.glb-chs{display:flex;flex-direction:column;gap:2px}
+.glb-ch{
+  display:flex;align-items:center;gap:2rem;
+  background:var(--panel);padding:2rem 2.5rem;transition:background .3s;
+}
+.glb-ch:hover{background:var(--card)}
+.glb-flag{font-size:1.4rem;flex-shrink:0}
+.glb-info{flex:1}
+.glb-n{font-size:.88rem;font-weight:600;margin-bottom:.3rem}
+.glb-d{font-size:.92rem;color:var(--cream);opacity:.85;line-height:1.7;font-weight:300}
+.glb-badge{
+  font-size:.58rem;padding:.22rem .65rem;
+  border:1px solid var(--bordersage);color:var(--sage);
+  white-space:nowrap;letter-spacing:.05em;text-transform:uppercase;
+  flex-shrink:0;
+}
+.glb-hl{background:var(--panel);padding:4rem 3.5rem;border:1px solid var(--border)}
+.glb-hl-label{font-size:.62rem;letter-spacing:.25em;color:var(--gold);text-transform:uppercase;margin-bottom:1.8rem}
+.glb-hl-h{font-size:1.5rem;font-weight:600;line-height:1.3;margin-bottom:1.5rem;letter-spacing:-.02em}
+.glb-hl-p{font-size:1rem;line-height:1.95;color:var(--cream);opacity:.85;font-weight:300}
+.comm-badge{
+  display:inline-block;font-size:.72rem;padding:.5rem 1.2rem;
+  background:rgba(196,168,122,.08);border:1px solid var(--gold);
+  color:var(--gold);margin-top:2rem;letter-spacing:.1em;font-weight:500;
+}
+@media(max-width:1024px){.glb-g{grid-template-columns:1fr;gap:3rem}}
+
+/* =================== CONTRACT =================== */
+#contract{background:var(--ink);padding:10rem 0;border-top:1px solid var(--border)}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:4rem}
+.pc{background:var(--panel);padding:4rem 3rem;transition:background .4s}
+.pc:hover{background:var(--deep)}
+.pc.feat{background:rgba(196,168,122,.06);border:1px solid var(--border)}
+.pc.feat:hover{background:rgba(196,168,122,.1)}
+.pc-tag{
+  font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--mist);margin-bottom:1.5rem;display:flex;align-items:center;gap:.5rem;
+}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--sage)}
+.dot.g{background:var(--gold)}
+.pc-disc{
+  font-size:clamp(2.5rem,4.5vw,4.5rem);font-weight:900;
+  color:var(--gold);line-height:1;letter-spacing:-.05em;margin-bottom:.4rem;
+}
+.pc-period{font-size:.78rem;color:var(--mist);margin-bottom:2.5rem;font-weight:300}
+.pc-list{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+.pc-list li{
+  font-size:.95rem;color:var(--cream);opacity:.85;padding-left:1.2rem;
+  position:relative;line-height:1.65;font-weight:300;
+}
+.pc-list li::before{content:'✓';position:absolute;left:0;color:var(--sage);font-size:.65rem}
+
+.inc{background:var(--panel);padding:4rem 3.5rem;margin-top:3rem;border-left:3px solid var(--gold)}
+.inc-h{font-size:1rem;font-weight:600;margin-bottom:2rem;letter-spacing:-.01em}
+.inc-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem}
+.inc-item{display:flex;gap:.8rem;align-items:flex-start}
+.inc-ck{color:var(--sage);font-size:.65rem;margin-top:.15rem;flex-shrink:0}
+.inc-tx{font-size:.95rem;line-height:1.7;color:var(--cream);opacity:.85;font-weight:300}
+@media(max-width:1024px){.price-grid{grid-template-columns:1fr}.inc-g{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.inc-g{grid-template-columns:1fr}}
+
+/* =================== CLOSING =================== */
+#closing{
+  background:var(--ink);padding:14rem 0;
+  text-align:center;border-top:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.cl-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 55% at 50% 50%,rgba(74,107,76,.07),transparent);
+  pointer-events:none;
+}
+.cl-ey{font-size:.62rem;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;margin-bottom:2rem;position:relative;z-index:1}
+.cl-h{
+  font-size:clamp(2.8rem,7vw,7rem);font-weight:800;
+  letter-spacing:-.05em;line-height:1.0;margin-bottom:2.5rem;
+  position:relative;z-index:1;
+}
+.cl-h em{font-style:normal;color:var(--gold)}
+.cl-p{
+  font-size:1.05rem;line-height:1.95;color:var(--cream);opacity:.85;
+  max-width:520px;margin:0 auto 4rem;font-weight:300;
+  position:relative;z-index:1;
+}
+.cta{
+  display:inline-block;padding:1.2rem 4rem;background:var(--gold);
+  color:var(--ink);font-size:.75rem;letter-spacing:.22em;
+  text-transform:uppercase;text-decoration:none;font-weight:700;
+  transition:background .3s;position:relative;z-index:1;
+}
+.cta:hover{background:var(--warmgold)}
+
+/* FOOTER */
+footer{background:var(--panel);border-top:1px solid var(--border);padding:2.5rem 0}
+.ft{display:flex;justify-content:space-between;align-items:center}
+.ft-brand{font-size:.72rem;font-weight:600;letter-spacing:.18em;color:var(--gold);text-transform:uppercase}
+.ft-meta{font-size:.65rem;color:var(--mist);letter-spacing:.05em}
+@media(max-width:640px){.ft{flex-direction:column;gap:1rem;text-align:center}}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--ink)}
+::-webkit-scrollbar-thumb{background:rgba(196,168,122,.3);border-radius:2px}
+
+/* REF BUTTONS */
+.ref-row{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.5rem}
+.ref-btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.78rem;letter-spacing:.06em;padding:.5rem 1.1rem;
+  border:1px solid var(--border);color:var(--gold);
+  text-decoration:none;font-weight:500;
+  background:rgba(196,168,122,.05);
+  transition:background .3s,border-color .3s;
+  white-space:nowrap;
+}
+.ref-btn:hover{background:rgba(196,168,122,.12);border-color:var(--gold)}
+.ref-btn .rb-icon{font-size:.8rem}
+.ref-btn.mag{border-color:var(--bordersage);color:var(--sage);background:rgba(122,168,124,.05)}
+.ref-btn.mag:hover{background:rgba(122,168,124,.12);border-color:var(--sage)}
+
+/* APP ICONS */
+.app-ico{
+  width:48px;height:48px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;margin-bottom:1rem;
+}
+.app-kakao{background:#FFE812}
+.app-line{background:#00B900}
+.app-whatsapp{background:#25D366}
+.app-wechat{background:#07C160}
+.crm-ico-wrap{display:flex;flex-direction:column;align-items:center;gap:.2rem}
+
+/* INFLUENCER SECTION */
+#influencer{background:var(--ink);padding:10rem 0;border-top:1px solid var(--border)}
+.inf-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:start;margin-top:4rem}
+.inf-highlight{
+  background:var(--panel);border:1px solid var(--border);
+  padding:3.5rem 3rem;position:relative;overflow:hidden;
+}
+.inf-highlight::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--sage),var(--gold));
+}
+.inf-badge{
+  display:inline-block;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+  padding:.25rem .7rem;background:rgba(196,168,122,.1);
+  border:1px solid var(--gold);color:var(--gold);margin-bottom:1.5rem;
+}
+.inf-pkg-price{
+  font-size:clamp(2rem,4vw,3rem);font-weight:900;
+  color:var(--gold);letter-spacing:-.04em;margin:1rem 0 .4rem;line-height:1;
+}
+.inf-pkg-sub{font-size:.75rem;color:var(--sage);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.5rem}
+.inf-points{list-style:none;display:flex;flex-direction:column;gap:.7rem;margin-top:1.5rem}
+.inf-points li{
+  font-size:.95rem;line-height:1.75;color:var(--cream);opacity:.85;
+  padding-left:1rem;position:relative;font-weight:300;
+}
+.inf-points li::before{content:'◆';position:absolute;left:0;color:var(--gold);font-size:.45rem;top:.3rem}
+
+/* PRICING TABLE */
+#pricing{background:var(--deep);padding:10rem 0;border-top:1px solid var(--border)}
+.ptbl-wrap{margin-top:4rem;display:flex;flex-direction:column;gap:2px}
+.ptbl-group{background:var(--panel)}
+.ptbl-group-title{
+  font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--gold);font-weight:600;padding:1.5rem 2.5rem;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:.8rem;
+}
+.ptbl-group-title::before{content:'';display:block;width:24px;height:1px;background:var(--gold);opacity:.7}
+.ptbl-row{
+  display:grid;grid-template-columns:1fr auto;
+  align-items:center;padding:1.2rem 2.5rem;
+  border-bottom:1px solid rgba(196,168,122,.06);
+  gap:2rem;transition:background .2s;
+}
+.ptbl-row:last-child{border-bottom:none}
+.ptbl-row:hover{background:rgba(196,168,122,.03)}
+.ptbl-item{font-size:1rem;font-weight:400;color:var(--cream);line-height:1.5}
+.ptbl-item small{display:block;font-size:.82rem;color:var(--cream);opacity:.65;margin-top:.3rem;font-weight:300}
+.ptbl-price{
+  font-size:1.1rem;font-weight:700;color:var(--gold);
+  white-space:nowrap;text-align:right;
+}
+.ptbl-price small{display:block;font-size:.75rem;color:var(--cream);opacity:.55;font-weight:300;text-align:right;margin-top:.2rem}
+.ptbl-price.free{color:var(--sage)}
+.ptbl-note{
+  padding:1rem 2.5rem;font-size:.85rem;color:var(--cream);
+  opacity:.6;font-style:italic;border-top:1px solid rgba(196,168,122,.06);
+}
+.ptbl-overseas{
+  background:var(--panel);border:1px solid var(--border);
+  padding:3rem 3.5rem;margin-top:2rem;
+  display:grid;grid-template-columns:1fr auto;align-items:center;gap:3rem;
+}
+.ptbl-overseas h3{font-size:1.1rem;font-weight:600;margin-bottom:.5rem}
+.ptbl-overseas p{font-size:.95rem;color:var(--cream);opacity:.85;line-height:1.75;font-weight:300}
+.ptbl-overseas .badge-group{display:flex;flex-direction:column;gap:.6rem;text-align:right}
+.ptbl-overseas .ov-badge{
+  display:inline-block;font-size:.65rem;padding:.35rem .9rem;
+  border:1px solid var(--border);color:var(--sage);
+  letter-spacing:.08em;white-space:nowrap;
+}
+.ptbl-overseas .ov-badge.gold{border-color:var(--gold);color:var(--gold)}
+@media(max-width:768px){
+  .ptbl-row{grid-template-columns:1fr;gap:.5rem}
+  .ptbl-price{text-align:left}
+  .ptbl-overseas{grid-template-columns:1fr}
+  .ptbl-overseas .badge-group{text-align:left;flex-direction:row;flex-wrap:wrap}
+  .inf-grid{grid-template-columns:1fr}
+}
+.magazine-ref{
+  margin-top:2rem;padding:1.5rem 2rem;
+  border:1px solid var(--bordersage);background:rgba(122,168,124,.04);
+}
+.magazine-ref p{font-size:.75rem;color:var(--sage);margin-bottom:.8rem;letter-spacing:.05em}
+.magazine-mock{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:3px;
+  height:120px;overflow:hidden;
+}
+.mag-cell{background:var(--deep);position:relative;overflow:hidden}
+.mag-cell::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(122,168,124,.15),rgba(196,168,122,.1));
+}
+.global-note{
+  margin-top:3rem;background:rgba(196,168,122,.05);
+  border:1px solid var(--border);padding:2rem 2.5rem;
+  font-size:.82rem;line-height:1.8;color:var(--cream);opacity:.85;
+}
+.global-note strong{color:var(--gold);font-weight:600}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="l-word">OBLIV &times; POLABS</div>
+  <div class="l-bar"></div>
+  <div class="l-sub">2026 Marketing Strategy Proposal</div>
+</div>
+
+<!-- CURSOR -->
+<div class="cursor-dot" id="cd"></div>
+<div class="cursor-ring" id="cr"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <span class="nav-brand">OBLIV × 피오랩스</span>
+  <div class="nav-links">
+    <a href="#data">현황 분석</a>
+    <a href="#clinics">클리닉</a>
+    <a href="#pkg">시그니처 패키지</a>
+    <a href="#global">글로벌</a>
+    <a href="#contract">계약 조건</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="h-grid"></div>
+  <div class="h-orb1"></div>
+  <div class="h-orb2"></div>
+  <div class="wrap h-content">
+    <p class="h-eyebrow">피오랩스 제안서 &nbsp;·&nbsp; 오블리브의원 &nbsp;·&nbsp; 2026</p>
+    <h1 class="h-title">
+      <span class="h-line"><span>의원 마케팅의</span></span>
+      <span class="h-line"><span>새로운 <em class="h-hl">기준</em>을</span></span>
+      <span class="h-line"><span>만든다.</span></span>
+    </h1>
+    <div class="h-meta">
+      <div class="h-mi"><span class="h-ml">Client</span><span class="h-mv">오블리브의원 OBLIV CLINIC</span></div>
+      <div class="h-div"></div>
+      <div class="h-mi"><span class="h-ml">Branches</span><span class="h-mv">인천 송도점 · 서울 오리진점</span></div>
+      <div class="h-div"></div>
+      <div class="h-mi"><span class="h-ml">Location</span><span class="h-mv">인천 연수구 · 서울 종로 파고다타워</span></div>
+      <div class="h-div"></div>
+      <div class="h-mi"><span class="h-ml">Proposal by</span><span class="h-mv">피오랩스 POLABS</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-t">
+    <span>로컬 SEO</span><span>플레이스 상위노출</span><span>쓰레드 마케팅</span>
+    <span>인물형 콘텐츠</span><span>글로벌 채널</span><span>CRM 세팅</span>
+    <span>블로그 최적화</span><span>인플루언서</span><span>일본 마케팅</span>
+    <span>닥터팔레트</span><span>바이럴 패키지</span><span>아메바블로그</span>
+    <span>로컬 SEO</span><span>플레이스 상위노출</span><span>쓰레드 마케팅</span>
+    <span>인물형 콘텐츠</span><span>글로벌 채널</span><span>CRM 세팅</span>
+    <span>블로그 최적화</span><span>인플루언서</span><span>일본 마케팅</span>
+    <span>닥터팔레트</span><span>바이럴 패키지</span><span>아메바블로그</span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section id="intro">
+  <div class="wrap">
+    <div class="intro-g">
+      <div class="intro-sticky">
+        <div class="big-n rv">02</div>
+        <div class="sec-label rv d1">Overview</div>
+        <h2 class="intro-h rv d2">두 클리닉,<br>하나의<br>전략 철학</h2>
+      </div>
+      <div>
+        <p class="sec-p rv" style="max-width:100%">
+          오블리브의원은 단순한 피부과가 아닙니다. 인천 송도점은 이미 지역 내 탄탄한 플레이스 순위를 보유하고 있으며, 서울 오리진점은 종로·파고다타워라는 역사적이고 독보적인 위치를 기반으로 국내외 프리미엄 고객을 겨냥한 플래그십으로 출발합니다.
+        </p>
+        <div class="sep rv"></div>
+        <p class="sec-p rv" style="max-width:100%">
+          피오랩스는 두 클리닉의 브랜드 정체성과 상권 특성을 면밀히 분석하여, 각각에 최적화된 마케팅 전략을 제안합니다. 데이터 기반의 SEO부터 원장님 퍼스널 브랜딩, 멀티채널 CRM, 그리고 글로벌 수수료형 계약까지 — 실행 가능한 전략 로드맵을 담았습니다.
+        </p>
+        <div class="sep rv"></div>
+        <p class="sec-p rv" style="max-width:100%;font-size:.85rem">
+          본 제안서는 <strong style="color:var(--cream);font-weight:600">송도점의 기존 강점을 극대화</strong>하는 동시에, <strong style="color:var(--cream);font-weight:600">서울 오리진점의 브랜드 런칭</strong>을 통해 오블리브 전체의 마케팅 파워를 상승시키는 통합 전략입니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLINICS -->
+<section id="clinics">
+  <div class="wrap">
+    <div class="sec-label rv">Clinics</div>
+    <h2 class="sec-h rv">오블리브의원 소개</h2>
+    <div class="cl-grid">
+      <div class="cl-card rv">
+        <p class="cl-idx">Branch 01 &nbsp;·&nbsp; 운영 중</p>
+        <h3 class="cl-name">오블리브의원<br>인천 송도점</h3>
+        <p class="cl-loc">인천광역시 연수구 송도</p>
+        <p class="cl-desc">
+          피부과·물리의학을 아우르는 복합 클리닉. 이미 '송도피부과' 네이버 플레이스 3위, <strong style="color:var(--cream);font-weight:500">'인천지방분해주사' 2위</strong>를 보유한 검증된 로컬 브랜드입니다. 관리급여화로 재편되는 도수치료 시장을 메디컬바디슬리밍으로 피벗하여 단가를 자유롭게 설계하고, 온라인 채널 최적화로 추가 성장을 만들어냅니다.
+        </p>
+        <div class="tags">
+          <span class="tag on">피부과</span>
+          <span class="tag on">지방분해주사</span>
+          <span class="tag on">도수치료</span>
+          <span class="tag">반영구</span>
+          <span class="tag">내성발톱</span>
+          <span class="tag">메디컬바디슬리밍</span>
+        </div>
+      </div>
+      <div class="cl-card rv d2">
+        <p class="cl-idx">Branch 02 &nbsp;·&nbsp; 개원 예정</p>
+        <h3 class="cl-name">오블리브의원<br>서울 오리진점</h3>
+        <p class="cl-loc">서울특별시 종로구 · 파고다타워</p>
+        <p class="cl-desc">
+          종로의 역사적 상징과 현대 프리미엄 미용의학이 만나는 플래그십 클리닉. 8층 피부건축학 기반의 차별화된 진료 컨셉과, 외모가 뛰어난 원장님을 앞세운 인물형 콘텐츠 전략으로 국내 MZ와 일본·북미 외국인 고객을 동시에 공략합니다.
+        </p>
+        <div class="tags">
+          <span class="tag on">프리미엄 피부</span>
+          <span class="tag on">바디슬리밍</span>
+          <span class="tag on">외국인 대응</span>
+          <span class="tag">글로벌 CRM</span>
+          <span class="tag">인물형 콘텐츠</span>
+          <span class="tag">비급여 패키지</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA -->
+<section id="data">
+  <div class="wrap">
+    <div class="data-hd">
+      <div>
+        <div class="sec-label rv">Data · 송도점 현황</div>
+        <h2 class="sec-h rv">숫자가 말하는<br>기회</h2>
+      </div>
+      <div>
+        <p class="sec-p rv">
+          현재 송도점은 핵심 키워드에서 강력한 포지션을 이미 확보했습니다. 그러나 고볼륨 키워드 '인천피부과' 14위와 미개척 서브 키워드들이 추가 성장의 여지를 만들고 있습니다. 데이터 기반으로 빈틈을 공략하는 것이 지금의 전략입니다.
+        </p>
+      </div>
+    </div>
+
+    <div class="rank-row rv">
+      <div class="rk">
+        <div class="rk-n">3<span class="suf">위</span></div>
+        <div class="rk-kw">송도피부과</div>
+        <div class="rk-vol">월간 검색량 15,590건</div>
+        <span class="rk-note">↑ 유지 &amp; 강화 목표</span>
+      </div>
+      <div class="rk">
+        <div class="rk-n dim">14<span class="suf">위</span></div>
+        <div class="rk-kw">인천피부과</div>
+        <div class="rk-vol">월간 검색량 6,870건</div>
+        <span class="rk-note" style="color:var(--rust)">⚡ 즉시 개선 타겟</span>
+      </div>
+      <div class="rk">
+        <div class="rk-n">2<span class="suf">위</span></div>
+        <div class="rk-kw">인천지방분해주사</div>
+        <div class="rk-vol">월간 검색량 980건</div>
+        <span class="rk-note">↑ 1위 진입 목표</span>
+      </div>
+    </div>
+
+    <div class="sec-label rv" style="margin-top:3rem">키워드 검색량 분석표</div>
+    <table class="kw-table rv">
+      <thead>
+        <tr>
+          <th>키워드</th><th>PC</th><th>모바일</th><th>합계</th><th>볼륨</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>송도피부과</td><td>3,190</td><td>12,400</td><td class="tot">15,590</td><td><span class="vbar" style="width:100%"></span></td></tr>
+        <tr><td>인천피부과</td><td>2,040</td><td>4,830</td><td class="tot">6,870</td><td><span class="vbar" style="width:44%"></span></td></tr>
+        <tr><td>인천눈썹문신</td><td>610</td><td>2,440</td><td class="tot">3,050</td><td><span class="vbar" style="width:20%"></span></td></tr>
+        <tr><td>송도눈썹문신</td><td>290</td><td>1,710</td><td class="tot">2,000</td><td><span class="vbar" style="width:13%"></span></td></tr>
+        <tr><td>인천내성발톱</td><td>220</td><td>480</td><td class="tot">700</td><td><span class="vbar" style="width:4.5%"></span></td></tr>
+        <tr><td>인천지방분해주사</td><td>500</td><td>480</td><td class="tot">980</td><td><span class="vbar" style="width:6.3%"></span></td></tr>
+        <tr><td>인천다이어트</td><td>380</td><td>540</td><td class="tot">920</td><td><span class="vbar" style="width:5.9%"></span></td></tr>
+        <tr><td>송도도수치료</td><td>120</td><td>520</td><td class="tot">640</td><td><span class="vbar" style="width:4.1%"></span></td></tr>
+        <tr><td>인천도수치료</td><td>150</td><td>390</td><td class="tot">540</td><td><span class="vbar" style="width:3.5%"></span></td></tr>
+        <tr><td>인천체형교정</td><td>80</td><td>430</td><td class="tot">510</td><td><span class="vbar" style="width:3.3%"></span></td></tr>
+        <tr><td>인천발톱무좀</td><td>90</td><td>400</td><td class="tot">490</td><td><span class="vbar" style="width:3.1%"></span></td></tr>
+        <tr><td>송도반영구</td><td>40</td><td>150</td><td class="tot">190</td><td><span class="vbar" style="width:1.2%"></span></td></tr>
+        <tr><td>송도지방분해주사</td><td>90</td><td>300</td><td class="tot">390</td><td><span class="vbar" style="width:2.5%"></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ISSUES -->
+<section id="issues">
+  <div class="wrap">
+    <div class="sec-label rv">개선 포인트 · 송도점</div>
+    <h2 class="sec-h rv" style="max-width:580px">아쉬운 부분들,<br>지금 바로 잡을 수 있습니다</h2>
+    <div class="is-grid">
+      <div class="is-card rv">
+        <div class="is-badge">즉시 개선</div>
+        <div class="is-ico">📋</div>
+        <h3 class="is-h">플레이스 블로그탭 미운영</h3>
+        <p class="is-p">네이버 플레이스 블로그탭을 활용하지 않으면 검색 노출 기회를 스스로 줄이는 것과 같습니다. 주력 시술 3종을 강조하는 블로그탭 구성이 시급합니다.</p>
+      </div>
+      <div class="is-card rv d1">
+        <div class="is-badge">즉시 개선</div>
+        <div class="is-ico">📅</div>
+        <h3 class="is-h">카카오 예약 미연동</h3>
+        <p class="is-p">카카오맵 예약 연동은 예약 전환율을 직접 높이는 가장 쉬운 액션입니다. 현재 미설정 상태로 잠재 고객 이탈이 발생하고 있습니다.</p>
+      </div>
+      <div class="is-card rv d2">
+        <div class="is-badge">즉시 개선</div>
+        <div class="is-ico">⭐</div>
+        <h3 class="is-h">예약자 리뷰 관리 부재</h3>
+        <p class="is-p">방문 후 리뷰 유도 프로세스 없이는 플레이스 순위가 정체됩니다. 카카오 알림톡 연계 리뷰 유도 자동화가 필요합니다.</p>
+      </div>
+      <div class="is-card rv">
+        <div class="is-badge">시장 변화 대응</div>
+        <div class="is-ico">📉</div>
+        <h3 class="is-h">도수치료 시장 축소 — 지금이 피벗 타이밍</h3>
+        <p class="is-p">비급여 도수치료가 관리급여화(약 4만원대)로 단가가 급락하는 시장 재편이 진행 중입니다. 지금 <strong style="color:var(--cream)">'메디컬바디슬리밍'</strong>으로 재브랜딩하면 45분 25만원 등 완전 비급여 패키지로 단가를 자유롭게 설계할 수 있습니다.</p>
+      </div>
+      <div class="is-card rv d1">
+        <div class="is-badge">SEO 기회</div>
+        <div class="is-ico">🔍</div>
+        <h3 class="is-h">서브 키워드 공략 미진</h3>
+        <p class="is-p">눈썹문신(3,050건), 반영구(190건), 발톱 관련(700건+) 등 미개척 서브 키워드가 많습니다. 서브 키워드 최블(최상위 블로그) 전략으로 트래픽 다변화가 가능합니다.</p>
+      </div>
+      <div class="is-card rv d2">
+        <div class="is-badge">채널 확장</div>
+        <div class="is-ico">🧵</div>
+        <h3 class="is-h">쓰레드 채널 미활용</h3>
+        <p class="is-p">의사 전문성을 텍스트로 전달하는 쓰레드는 피부과 마케팅에서 경쟁이 낮은 블루오션입니다. 전문 정보성 콘텐츠로 브랜드 신뢰를 쌓을 수 있습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SONGDO STRATEGY -->
+<section class="strat dark">
+  <div class="wrap">
+    <div class="strat-hd">
+      <div>
+        <p class="strat-idx rv">Strategy 01</p>
+        <h2 class="strat-h rv">송도점<br><em>강화 전략</em></h2>
+      </div>
+      <div>
+        <p class="sec-p rv">이미 강한 브랜드를 더 강하게. 현재 가진 강점을 극대화하면서, 놓치고 있는 채널과 키워드를 체계적으로 공략합니다. 도수치료 시장 재편을 기회로 삼아 메디컬바디슬리밍이라는 새로운 카테고리를 선점합니다.</p>
+      </div>
+    </div>
+    <div class="strat-items">
+      <div class="si rv">
+        <p class="si-n">01</p>
+        <h3 class="si-h">네이버 플레이스 및<br>카카오맵 최적화</h3>
+        <p class="si-p">송도피부과 3위 → 1위 진입, 인천피부과 14위 → 상위권 진입이 목표입니다. 네이버와 카카오맵 양쪽 모두를 동시 공략합니다.</p>
+        <ul class="si-ul">
+          <li>플레이스 블로그탭 세팅 — 주력 시술 3종 강조 구성</li>
+          <li>카카오맵 예약 연동 — 예약 전환율 즉시 상승 (현재 미설정)</li>
+          <li>예약자 리뷰 유도 자동화 — 카카오 알림톡 연계</li>
+          <li>네이버·카카오 프로필 최신화 및 키워드 최적화</li>
+        </ul>
+      </div>
+      <div class="si rv d1">
+        <p class="si-n">02</p>
+        <h3 class="si-h">블로그·카페 후기성 상위노출<br>+ 당근 동네생활 로컬 여론 형성</h3>
+        <p class="si-p">서브 키워드 후기형 콘텐츠로 검색 유입을 다변화하고, 당근 동네생활 인기글로 지역 여론을 자연스럽게 형성합니다.</p>
+        <ul class="si-ul">
+          <li>인천/송도 눈썹문신·반영구 키워드 후기형 상위 장악</li>
+          <li>인천/송도 발톱(내성발톱·발톱무좀) 서브 키워드 공략</li>
+          <li>지역 맘카페·뷰티카페 자연스러운 후기성 바이럴</li>
+          <li><strong style="color:var(--cream);font-weight:500">당근마켓 동네생활 인기글 전략</strong> — 지역 주민 여론 형성 및 자연 유입 유도</li>
+          <li>동네생활 Q&amp;A형·정보형 콘텐츠로 신뢰 기반 잠재 고객 확보</li>
+        </ul>
+      </div>
+      <div class="si rv">
+        <p class="si-n">03</p>
+        <h3 class="si-h">쓰레드 플레이<br>— 전문의 신뢰 콘텐츠</h3>
+        <p class="si-p">피부과 의사의 전문성을 텍스트로 풀어내는 쓰레드는 경쟁이 낮은 블루오션입니다. 아래 레퍼런스 계정들을 벤치마킹합니다.</p>
+        <ul class="si-ul">
+          <li>피부·미용 정보성 콘텐츠 + 원장 페르소나 확립</li>
+          <li>지방분해주사, 반영구, 메디컬바디슬리밍 전문 Q&amp;A 형태</li>
+          <li>팔로워 기반 잠재 고객 DB 구축</li>
+        </ul>
+        <div class="ref-row">
+          <a class="ref-btn" href="https://www.threads.com/@dr_baebae__" target="_blank"><span class="rb-icon">🧵</span>@dr_baebae</a>
+          <a class="ref-btn" href="https://www.threads.com/@oganacell_jb" target="_blank"><span class="rb-icon">🧵</span>@oganacell_jb</a>
+          <a class="ref-btn" href="https://www.threads.com/@hur_wu_jin" target="_blank"><span class="rb-icon">🧵</span>@hur_wu_jin</a>
+        </div>
+      </div>
+      <div class="si rv d1">
+        <p class="si-n">04</p>
+        <h3 class="si-h">메디컬바디슬리밍<br>— 도수치료 시장 피벗</h3>
+        <p class="si-p">관리급여화로 비급여 도수치료 단가가 4만원대로 붕괴되는 지금, <strong style="color:var(--cream)">'메디컬바디슬리밍'</strong>으로 재브랜딩하면 완전 비급여 패키지로 단가를 자유롭게 설계할 수 있습니다.</p>
+        <ul class="si-ul">
+          <li>기존 도수치료 → 메디컬바디슬리밍으로 전면 재브랜딩</li>
+          <li>45분 25만원 등 완전 비급여 패키지 자유 설계</li>
+          <li>에스테틱 요소를 메디컬 기반과 결합한 하이브리드 컨셉</li>
+          <li>'체형 교정' → '라인 슬리밍' '바디 리모델링' 언어 전환</li>
+          <li>기존 도수 키워드 유입 → 프리미엄 패키지 전환 퍼널 설계</li>
+        </ul>
+        <div class="ref-row">
+          <a class="ref-btn mag" href="https://naver.me/xJiBaPrH" target="_blank"><span class="rb-icon">💰</span>헬바디 금액 레퍼런스</a>
+        </div>
+      </div>
+      <div class="si wide rv">
+        <p class="si-n">05</p>
+        <h3 class="si-h">웹사이트 네이버 웹영역 상위노출 — 플레이스 바로 아래까지 장악</h3>
+        <p class="si-p" style="max-width:680px">피오랩스가 보유한 도메인으로 상위노출 후 기존 홈페이지로 리디렉션하는 방식. 메인 키워드(송도피부과, 인천피부과 등) 네이버 플레이스 바로 아래 웹사이트 영역까지 오블리브의원이 장악하는 형태입니다.</p>
+        <ul class="si-ul" style="columns:2;gap:3rem;margin-top:1rem">
+          <li>피오랩스 보유 도메인으로 웹영역 상위 진입</li>
+          <li>기존 오블리브의원 홈페이지로 리디렉션 연결</li>
+          <li>플레이스(지도) + 웹영역 이중 장악으로 클릭 독점</li>
+          <li>개별 키워드별 랜딩 제작 — 후킹 강조 시 추가 적용</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEOUL ORIGIN STRATEGY -->
+<section class="strat dark">
+  <div class="wrap">
+    <div class="strat-hd">
+      <div>
+        <p class="strat-idx rv">Strategy 02</p>
+        <h2 class="strat-h rv">서울 오리진점<br><em>런칭 전략</em></h2>
+      </div>
+      <div>
+        <p class="sec-p rv">파고다타워라는 독보적 위치와 원장님의 비주얼 경쟁력을 핵심 자산으로. 국내 MZ와 외국인 관광객, 두 타겟을 동시에 공략하는 투트랙 전략으로 개원 첫날부터 화제성을 만듭니다.</p>
+      </div>
+    </div>
+    <div class="strat-items">
+      <div class="si rv" style="grid-column:1/-1">
+        <p class="si-n">01</p>
+        <h3 class="si-h" style="font-size:clamp(1.2rem,2.2vw,1.7rem)">인물형 콘텐츠 × 매거진형 채널 운영<br>— 관심에서 검색으로, 검색에서 매료로</h3>
+        <p class="si-p" style="max-width:100%;margin-bottom:1.5rem">원장님의 인물형 콘텐츠와 오블리브만의 매거진형 채널을 동시에 운영합니다. 퍼스널 콘텐츠가 팔로워의 관심을 끌고, 그 관심이 병원 검색으로 연결됩니다. 검색을 통해 들어온 사람이 트렌디하고 전문적이면서도 오블리브만의 감성이 담긴 매거진 피드를 마주하는 순간 — 그게 바로 예약 버튼을 누르게 만드는 힘입니다.</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2rem">
+          <div style="background:var(--deep);padding:2rem 2rem 2rem;border-top:2px solid var(--gold)">
+            <p style="font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:1rem">Step 01 · 인물형 콘텐츠</p>
+            <p style="font-size:.83rem;line-height:1.85;color:var(--cream);opacity:.85;font-weight:300">원장님의 일상·시술 설명·Before/After 릴스로 <strong style="color:var(--cream);font-weight:600">"팔로우하고 싶은 의사"</strong>를 만듭니다. 팔로워가 쌓이면 자연스럽게 병원 검색으로 연결됩니다.</p>
+          </div>
+          <div style="background:var(--deep);padding:2rem 2rem 2rem;border-top:2px solid var(--sage)">
+            <p style="font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--sage);font-weight:600;margin-bottom:1rem">Step 02 · 매거진형 채널</p>
+            <p style="font-size:.83rem;line-height:1.85;color:var(--cream);opacity:.85;font-weight:300">검색으로 유입된 사람이 오블리브의원의 인스타그램에 도달했을 때, 트렌디하고 전문적이면서도 <strong style="color:var(--cream);font-weight:600">오블리브만의 감성이 담긴 매거진</strong>으로 매료시킵니다.</p>
+          </div>
+        </div>
+
+        <div style="background:rgba(196,168,122,.04);border:1px solid var(--border);padding:1.5rem 2rem;margin-bottom:1.5rem;font-size:.8rem;line-height:1.8;color:var(--cream);opacity:.75">
+          <span style="color:var(--gold);font-weight:600;opacity:1">플로우 :</span>&nbsp; 인물형 릴스 노출 → 팔로우 → 호기심에 병원 검색 → 오블리브 인스타/홈페이지 도달 → 매거진형 피드로 브랜드 신뢰 형성 → 예약 전환
+        </div>
+
+        <ul class="si-ul" style="margin-bottom:1.5rem">
+          <li>인물형 릴스 — 원장님 일상·시술 설명·시술 전후 비교 콘텐츠</li>
+          <li>매거진형 피드 구성 — 글로벌·일본 계정 동시 운영</li>
+          <li>뷰티·라이프스타일 인플루언서 유료 협찬으로 초기 인지도 가속</li>
+        </ul>
+
+        <div class="ref-row">
+          <a class="ref-btn" href="https://www.instagram.com/dr_annalee/reels/" target="_blank"><span class="rb-icon">📸</span>@dr_annalee</a>
+          <a class="ref-btn" href="https://www.instagram.com/dr_ohmi/reels/" target="_blank"><span class="rb-icon">📸</span>@dr_ohmi</a>
+          <a class="ref-btn" href="https://www.instagram.com/yaanclinic/reels/" target="_blank"><span class="rb-icon">📸</span>@yaanclinic</a>
+          <a class="ref-btn mag" href="https://busan-pearl.vercel.app/" target="_blank"><span class="rb-icon">📰</span>매거진형 인스타 레퍼런스</a>
+        </div>
+      </div>
+      <div class="si rv d1">
+        <p class="si-n">02</p>
+        <h3 class="si-h">플레이스·웹사이트<br>— 서울 키워드 선점 + 뷰티카페 여론</h3>
+        <p class="si-p">개원 초기부터 종로·광화문 키워드 포지션 확보, 국내 주요 뷰티 커뮤니티에서 자연스럽게 여론을 형성합니다.</p>
+        <ul class="si-ul">
+          <li>종로피부과, 광화문피부과 상권 키워드 우선 노출</li>
+          <li><strong style="color:var(--cream);font-weight:500">여우야·파우더룸</strong> 등 뷰티 카페 — 질문응답형 + 후기형으로 자연스러운 여론 조성</li>
+          <li>구글맵 최적화 — 영어 리뷰 유도로 외국인 검색 노출</li>
+          <li>자잘한 서브 키워드 전부 상위 노출</li>
+          <li>강남언니·여신티켓 후기 작업으로 앱 내 노출 강화</li>
+        </ul>
+      </div>
+      <div class="si rv">
+        <p class="si-n">03</p>
+        <h3 class="si-h">CRM 멀티채널<br>— 다국어 상담 시스템</h3>
+        <p class="si-p">국내 고객과 외국인 고객 모두를 위한 멀티채널 CRM을 구축합니다.</p>
+        <ul class="si-ul">
+          <li>카카오채널 — 국내 고객 상담·예약 연결</li>
+          <li>LINE — 일본 고객 전용 채널</li>
+          <li>WhatsApp — 북미·동남아·유럽권 상담</li>
+          <li>WeChat — 중국 고객 대응 (선택)</li>
+          <li>닥터팔레트 세팅 + 예약 스케줄 대행</li>
+        </ul>
+      </div>
+      <div class="si rv d1">
+        <p class="si-n">04</p>
+        <h3 class="si-h">프리미엄 바디 컨셉<br>— 비급여 패키지 기획</h3>
+        <p class="si-p">'도수치료'라는 단어 대신 프리미엄 라이프스타일 언어로 재포지셔닝합니다. 프리미엄 인테리어에 걸맞는 하이엔드 패키지를 기획합니다.</p>
+        <ul class="si-ul">
+          <li>'바디슬리밍' '라인케어' '슬리밍 리추얼' 컨셉 언어 개발</li>
+          <li>100% 비급여형 프리미엄 바디 패키지 구성</li>
+          <li>패키지명: "Body Origin" 또는 "Contour Ritual"</li>
+          <li>국내외 바이럴 마케팅을 위한 대표 상품으로 포지셔닝</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGE -->
+<section id="pkg">
+  <div class="wrap">
+    <div class="sec-label rv">Signature Package · 서울오리진 예시</div>
+    <h2 class="sec-h rv">원데이 올라인업<br>슬리밍 패키지</h2>
+    <div class="rv" style="display:flex;align-items:center;gap:1.2rem;margin-bottom:2rem;padding:1.2rem 2rem;background:rgba(196,168,122,.07);border:1px solid var(--gold)">
+      <span style="font-size:1.2rem">💡</span>
+      <p style="font-size:.85rem;line-height:1.7;color:var(--cream);font-weight:300"><strong style="color:var(--gold);font-weight:700">이 패키지는 대표 상품 예시입니다.</strong> 프리미엄 인테리어에 걸맞는 하이엔드 비급여 패키지를 기획하고, 국내외 바이럴 마케팅의 시그니처 상품으로 활용합니다. 실제 구성·가격은 원장님과 미팅 후 함께 설계합니다.</p>
+    </div>
+    <div class="pkg-card rv">
+      <div style="display:inline-block;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;padding:.3rem .9rem;background:rgba(196,168,122,.15);border:1px solid var(--gold);color:var(--gold);margin-bottom:1.5rem;font-weight:600">▶ 바이럴 대표 상품 예시 · 비급여 하이엔드 패키지</div>
+      <h3 class="pkg-name">One-Day All Line-Up Slimming</h3>
+      <p class="pkg-sub">얼굴 + 바디 · 2시간 완결 · 국내외 바이럴 목적 시그니처 상품</p>
+      <div class="pkg-comps">
+        <div class="pkg-comp">
+          <div class="pkg-ico">✦</div>
+          <div class="pkg-cn">울쎄라 or 써마지 300샷</div>
+          <div class="pkg-cd">얼굴 리프팅 &amp; 타이트닝. 콜라겐 재생을 통한 자연스러운 리프트업 효과.</div>
+        </div>
+        <div class="pkg-comp">
+          <div class="pkg-ico">◈</div>
+          <div class="pkg-cn">바디슬리밍케어 40분</div>
+          <div class="pkg-cd">집중 바디라인케어. 메디컬 + 에스테틱 결합 하이브리드 테라피.</div>
+        </div>
+        <div class="pkg-comp">
+          <div class="pkg-ico">◇</div>
+          <div class="pkg-cn">지방분해주사 (턱 or 복부)</div>
+          <div class="pkg-cd">즉각적인 라인 슬리밍. 써마지/울쎄라와 시너지로 극대화된 라인업 효과.</div>
+        </div>
+      </div>
+      <div class="pkg-price-row">
+        <div>
+          <p class="pkg-pl">패키지 예시 가격 (비급여)</p>
+          <p class="pkg-price">2,490,000원</p>
+        </div>
+        <div>
+          <p class="pkg-dur">2시간 · 당일 완결 · 100% 비급여</p>
+          <p style="font-size:.72rem;color:var(--cream);opacity:.5;margin-top:.3rem;font-style:italic">* 이 패키지는 대표 상품 예시이며, 실제 구성은 미팅 시 협의</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CRM -->
+<section id="crm">
+  <div class="wrap">
+    <div class="sec-label rv">CRM · 멀티채널</div>
+    <h2 class="sec-h rv">국내외 고객 모두를<br>연결하는 채널</h2>
+    <div class="crm-chs">
+      <div class="crm-ch rv">
+        <div class="crm-ico-wrap">
+          <div class="app-ico app-kakao">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 4C8.477 4 4 7.582 4 12c0 2.84 1.72 5.34 4.32 6.86l-1.1 4.06 4.74-3.12c.66.1 1.33.2 2.04.2 5.523 0 10-3.582 10-8s-4.477-8-10-8z" fill="#391B1B"/></svg>
+          </div>
+          <div class="crm-n">카카오채널</div>
+        </div>
+        <div class="crm-d">국내 고객 주력 채널. 예약 연결, 상담 자동화, 리뷰 유도까지 통합 운영.</div>
+      </div>
+      <div class="crm-ch rv d1">
+        <div class="crm-ico-wrap">
+          <div class="app-ico app-line">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="4" y="6" width="20" height="16" rx="4" fill="white" fill-opacity="0.25"/><text x="14" y="18" text-anchor="middle" fill="white" font-size="9" font-weight="700" font-family="sans-serif">LINE</text></svg>
+          </div>
+          <div class="crm-n">LINE</div>
+        </div>
+        <div class="crm-d">일본 고객 전용 채널. 일본어 상담 지원 + 일본 인스타 계정 연동.</div>
+      </div>
+      <div class="crm-ch rv d2">
+        <div class="crm-ico-wrap">
+          <div class="app-ico app-whatsapp">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3C7.93 3 3 7.93 3 14c0 2.1.58 4.06 1.6 5.74L3 25l5.4-1.57A11 11 0 0014 25c6.07 0 11-4.93 11-11S20.07 3 14 3zm5.4 15.2c-.22.64-1.3 1.22-1.78 1.3-.46.08-1.04.1-1.68-.1-.38-.12-.88-.3-1.52-.58-2.66-1.16-4.4-3.84-4.54-4.02-.14-.18-1.1-1.48-1.1-2.82 0-1.34.7-2 .96-2.26.24-.26.54-.32.72-.32.18 0 .36.002.52.01.16.008.38-.06.6.46.22.54.74 1.82.8 1.96.06.14.1.3.02.48-.08.18-.12.3-.24.46-.12.16-.26.36-.36.48-.12.14-.26.28-.1.56.14.28.64 1.06 1.38 1.72.96.86 1.76 1.12 2.02 1.26.26.12.4.1.56-.06.14-.16.62-.72.8-1 .16-.26.32-.22.54-.12.22.1 1.38.66 1.62.78.24.12.4.18.46.28.06.1.06.6-.16 1.22z" fill="white"/></svg>
+          </div>
+          <div class="crm-n">WhatsApp</div>
+        </div>
+        <div class="crm-d">북미·유럽·동남아 상담. 시차 대응 구글폼 자동발송 연계.</div>
+      </div>
+      <div class="crm-ch rv d3">
+        <div class="crm-ico-wrap">
+          <div class="app-ico app-wechat">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><ellipse cx="10" cy="13" rx="7" ry="5.5" fill="none" stroke="white" stroke-width="1.5"/><ellipse cx="18" cy="16" rx="6" ry="4.5" fill="none" stroke="white" stroke-width="1.5"/><circle cx="8.5" cy="13" r="1" fill="white"/><circle cx="11.5" cy="13" r="1" fill="white"/><circle cx="16.5" cy="16" r="1" fill="white"/><circle cx="19.5" cy="16" r="1" fill="white"/></svg>
+          </div>
+          <div class="crm-n">WeChat</div>
+        </div>
+        <div class="crm-d">중국 고객 대응. 중국 채널 확장 시 기반 채널로 활용.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GLOBAL -->
+<section id="global">
+  <div class="wrap">
+    <div class="sec-label rv">Global · 해외 마케팅</div>
+    <h2 class="sec-h rv">글로벌 환자들이<br>자연스레 방문하는<br>피부과를 만든다</h2>
+    <div class="glb-g">
+      <div class="glb-chs rv">
+        <div class="glb-ch">
+          <div class="glb-flag">🇯🇵</div>
+          <div class="glb-info">
+            <div class="glb-n">일본 마케팅</div>
+            <div class="glb-d">인스타그램 일본어 계정 + 아메바블로그 정보성 콘텐츠. 종로 접근성·한국 뷰티투어 수요 공략.</div>
+          </div>
+          <span class="glb-badge">수수료형 시 무료</span>
+        </div>
+        <div class="glb-ch">
+          <div class="glb-flag">🌎</div>
+          <div class="glb-info">
+            <div class="glb-n">북미권 마케팅</div>
+            <div class="glb-d">혜민 인사이트 활용. 영어 매거진형 인스타 운영 + 쓰레드 플레이. 한국계 미국인 커뮤니티.</div>
+          </div>
+          <span class="glb-badge">수수료형 시 무료</span>
+        </div>
+        <div class="glb-ch">
+          <div class="glb-flag">🌏</div>
+          <div class="glb-info">
+            <div class="glb-n">글로벌 계정 통합 운영</div>
+            <div class="glb-d">글로벌 매거진형 인스타그램 통합. 다국어 캡션, 지역별 타겟 광고 집행.</div>
+          </div>
+          <span class="glb-badge">수수료형 시 무료</span>
+        </div>
+        <div class="glb-ch">
+          <div class="glb-flag">📋</div>
+          <div class="glb-info">
+            <div class="glb-n">외국인용 랜딩페이지 + 예약 시스템</div>
+            <div class="glb-d">영어·일본어 랜딩페이지 제작. 시차 대응 Google Form 자동 예약 연계.</div>
+          </div>
+          <span class="glb-badge">수수료형 시 무료</span>
+        </div>
+      </div>
+      <div class="glb-hl rv d2">
+        <p class="glb-hl-label">장기 파트너십 · 수수료형 계약</p>
+        <h3 class="glb-hl-h">해외 매출을<br>함께 만들고<br>함께 성장합니다</h3>
+        <p class="glb-hl-p">
+          국내·중국을 제외한 일본·북미·동남아·유럽 등 해외 채널에서 발생하는 신규 매출에 대해 수수료 형태의 파트너십 계약을 제안합니다.<br><br>
+          <strong style="color:var(--cream);font-weight:600">수수료형 계약 체결 시</strong>, 각 국가별 마케팅 전략 (글로벌 인스타, 일본어 계정, 아메바블로그, 영문 랜딩 등) 을 전부 무료로 지원합니다.<br><br>
+          의원은 선투자 없이 글로벌 매출을 확보하고, 피오랩스는 성과 기반으로 함께 성장하는 구조입니다.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:.6rem;margin-top:2rem">
+          <span class="comm-badge" style="display:inline-block;font-size:.72rem;padding:.5rem 1.2rem;background:rgba(196,168,122,.08);border:1px solid var(--gold);color:var(--gold);letter-spacing:.1em;font-weight:500">수수료율 — 미팅 협의 (예시 요율 적용 가능)</span>
+          <span style="display:inline-block;font-size:.7rem;padding:.4rem 1rem;border:1px solid var(--bordersage);color:var(--sage);letter-spacing:.08em">수수료형 계약 = 아래 견적표 항목 할인 적용 포함</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING TABLE -->
+<!-- INFLUENCER -->
+<section id="influencer">
+  <div class="wrap">
+    <div class="sec-label rv">Influencer · 인플루언서 마케팅</div>
+    <h2 class="sec-h rv">참여율이 살아있는<br>인플루언서로만<br>진행합니다</h2>
+    <div class="inf-grid">
+      <div class="rv">
+        <p class="sec-p" style="max-width:100%">
+          단순 팔로워 수가 아닌 <strong style="color:var(--cream);font-weight:600">실제 인게이지먼트가 활성화된 인플루언서</strong>를 피오랩스가 직접 컨택합니다. 콘텐츠 기획부터 플로우 설정, DM 전환 방식까지 설계하여 소비자 참여율을 극대화합니다.
+        </p>
+        <div style="margin-top:2.5rem;display:flex;flex-direction:column;gap:.8rem">
+          <div style="padding:1.5rem 2rem;background:var(--panel);border-left:2px solid var(--gold)">
+            <p style="font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem">핵심 전략</p>
+            <p style="font-size:.85rem;line-height:1.8;color:var(--cream);opacity:.85;font-weight:300">인게이지먼트 활성화 인플루언서 선별 컨택 → 콘텐츠 기획 및 플로우 설정 → DM 전환 방식으로 소비자 참여율 극대화 → 실제 예약 전환으로 연결</p>
+          </div>
+          <div style="padding:1.5rem 2rem;background:var(--panel)">
+            <p style="font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--sage);margin-bottom:.5rem">적용 채널</p>
+            <p style="font-size:.85rem;line-height:1.8;color:var(--cream);opacity:.85;font-weight:300">인스타그램 릴스 / 쓰레드 / 유튜브 쇼츠 — 시술 카테고리 및 타겟 연령대에 맞는 채널 선택</p>
+          </div>
+        </div>
+        <p style="font-size:.72rem;color:var(--cream);opacity:.5;margin-top:1.5rem;font-style:italic">* 구체적인 레퍼런스 계정은 미팅 시 별도 공유</p>
+      </div>
+      <div class="inf-highlight rv d2">
+        <span class="inf-badge">패키지 상품</span>
+        <h3 style="font-size:1.2rem;font-weight:600;letter-spacing:-.02em;margin-bottom:.3rem">인플루언서 콘텐츠 마케팅</h3>
+        <p style="font-size:.72rem;color:var(--sage);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem">10건 패키지</p>
+        <div class="inf-pkg-price">5,000,000<span style="font-size:1.2rem;font-weight:600">원</span></div>
+        <p class="inf-pkg-sub">VAT 별도 · 10건 기준</p>
+        <ul class="inf-points">
+          <li>피오랩스 자체 보유 인플루언서 네트워크 활용</li>
+          <li>인게이지먼트율 기준 인플루언서 선별 (팔로워 수 기준 X)</li>
+          <li>시술별 맞춤 콘텐츠 기획 및 스크립트 제공</li>
+          <li>DM 전환 플로우 설계 — 예약 전환까지 연결</li>
+          <li>콘텐츠 성과 리포트 제공</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-label rv">Pricing · 전체 견적표</div>
+    <h2 class="sec-h rv">서비스별<br>가격 한눈에</h2>
+    <p class="sec-p rv">모든 가격은 VAT 별도입니다. 패키지 구성 및 수량은 미팅 후 조율 가능합니다.</p>
+
+    <div class="ptbl-wrap rv" style="margin-top:3rem">
+
+      <!-- 플레이스 -->
+      <div class="ptbl-group">
+        <div class="ptbl-group-title">네이버 플레이스 · 카카오맵 최적화 &nbsp;<span style="color:var(--sage);font-size:.58rem;font-weight:400;letter-spacing:.05em">25일 보장제 · 후불제</span></div>
+        <div class="ptbl-row">
+          <div class="ptbl-item">인천피부과 플레이스 1~5위<small>네이버 플레이스 + 카카오맵 통합 최적화</small></div>
+          <div class="ptbl-price">1,500,000원<small>VAT 별도</small></div>
+        </div>
+        <div class="ptbl-row">
+          <div class="ptbl-item">종로피부과 플레이스 1~5위<small>서울 오리진점 개원 대응 · 선점 공략</small></div>
+          <div class="ptbl-price">1,600,000원<small>VAT 별도</small></div>
+        </div>
+      </div>
+
+      <!-- 웹사이트 SEO -->
+      <div class="ptbl-group">
+        <div class="ptbl-group-title">웹사이트 네이버 웹영역 상위노출 &nbsp;<span style="color:var(--sage);font-size:.58rem;font-weight:400;letter-spacing:.05em">25일 보장제 · 후불제 · 도메인 리디렉션 방식</span></div>
+        <div class="ptbl-row">
+          <div class="ptbl-item">송도피부과<small>피오랩스 보유 도메인 → 홈페이지 리디렉션 · 플레이스 아래 웹영역 장악</small></div>
+          <div class="ptbl-price">1,500,000원<small>VAT 별도</small></div>
+        </div>
+        <div class="ptbl-row">
+          <div class="ptbl-item">인천피부과<small>동일 방식 적용</small></div>
+          <div class="ptbl-price">1,300,000원<small>VAT 별도</small></div>
+        </div>
+        <div class="ptbl-row">
+          <div class="ptbl-item">종로피부과<small>서울 오리진점 대응</small></div>
+          <div class="ptbl-price">1,300,000원<small>VAT 별도</small></div>
+        </div>
+        <div class="ptbl-note">* 후킹 강조 개별 랜딩 제작 필요 시 랜딩 1건당 +300,000원</div>
+      </div>
+
+      <!-- SNS 채널 운영 -->
+      <div class="ptbl-group">
+        <div class="ptbl-group-title">SNS 채널 운영 관리</div>
+        <div class="ptbl-row">
+          <div class="ptbl-item">인스타그램 매거진형 계정 브랜딩 관리<small>월 20건 게시 기준 · 피드 기획·디자인·업로드 포함</small></div>
+          <div class="ptbl-price">800,000원<small>VAT 별도 · 월정액</small></div>
+        </div>
+        <div class="ptbl-row">
+          <div class="ptbl-item">쓰레드 원장님 개인 바이럴 계정 관리<small>월 30건 이상 게시 기준 · 콘텐츠 기획·작성 포함</small></div>
+          <div class="ptbl-price">800,000원<small>VAT 별도 · 월정액</small></div>
+        </div>
+        <div class="ptbl-row">
+          <div class="ptbl-item">인스타 및 SNS 인물형 채널 운영 관리<small>월 12건 · 콘텐츠 기획·스크립트·영상편집·촬영 전부 포함</small></div>
+          <div class="ptbl-price">3,600,000원<small>VAT 별도 · 월정액</small></div>
+        </div>
+      </div>
+
+      <!-- 바이럴 패키지 -->
+      <div class="ptbl-group">
+        <div class="ptbl-group-title">바이럴 · 후기 패키지 &nbsp;<span style="color:var(--sage);font-size:.58rem;font-weight:400;letter-spacing:.05em">10건 단위</span></div>
+        <div class="ptbl-row">
+          <div class="ptbl-item">당근 동네생활 인기글 상위노출<small>로컬 여론 형성 · Q&amp;A형·정보형 콘텐츠 10건</small></div>
+          <div class="ptbl-price">290,000원<small>10건 패키지</small></div>
+        </div>
+        <div class="ptbl-row">
+          <div class="ptbl-item">서브 키워드 최적화 블로그 후기형 배포<small>인천/송도 서브 키워드 상위노출 목적 10건</small></div>
+          <div class="ptbl-price">600,000원<small>10건 패키지</small></div>
+        </div>
+        <div class="ptbl-row">
+          <div class="ptbl-item">성형·피부 뷰티카페 바이럴<small>여우야·파우더룸 등 주요 뷰티 카페 · 질문응답형+후기형 10건</small></div>
+          <div class="ptbl-price">290,000원<small>10건 패키지</small></div>
+        </div>
+        <div class="ptbl-row">
+          <div class="ptbl-item">강남언니·여신티켓 등 앱 후기 작업<small>주요 의료 앱 내 노출 강화 · 후기형 10건</small></div>
+          <div class="ptbl-price">290,000원<small>10건 패키지</small></div>
+        </div>
+      </div>
+
+      <!-- 인플루언서 -->
+      <div class="ptbl-group">
+        <div class="ptbl-group-title">인플루언서 콘텐츠 마케팅</div>
+        <div class="ptbl-row">
+          <div class="ptbl-item">인게이지먼트 활성화 인플루언서 10건 패키지<small>컨택·기획·플로우 설정·DM 전환 방식 포함 · 레퍼런스 미팅 시 공유</small></div>
+          <div class="ptbl-price">5,000,000원<small>VAT 별도 · 10건</small></div>
+        </div>
+      </div>
+
+      <!-- 무료 -->
+      <div class="ptbl-group">
+        <div class="ptbl-group-title">무료 지원</div>
+        <div class="ptbl-row">
+          <div class="ptbl-item">카카오 예약 생성 및 연동<small>카카오맵 예약 연동 세팅 · 즉시 전환율 개선</small></div>
+          <div class="ptbl-price free">무료</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 해외 마케팅 -->
+    <div class="ptbl-overseas rv">
+      <div>
+        <h3>해외 마케팅 파트</h3>
+        <p style="margin-top:.5rem">일본 인스타그램, 아메바블로그, 영문 글로벌 계정, 외국인용 랜딩페이지, WhatsApp/LINE CRM, 닥터팔레트 예약 대행, 구글폼 자동화 등 — 위에 나열된 모든 해외 마케팅 전략을 포함합니다.<br><br>수수료형 계약 체결 시 전 항목 무료 지원. 그 외 구성은 미팅 협의 후 결정.</p>
+      </div>
+      <div class="badge-group">
+        <span class="ov-badge gold">수수료형 계약 시 전부 무료</span>
+        <span class="ov-badge">수수료율 — 미팅 협의</span>
+        <span class="ov-badge">국내·중국 제외 적용</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section id="closing">
+  <div class="cl-bg"></div>
+  <div class="wrap" style="text-align:center">
+    <p class="cl-ey rv">POLABS × OBLIV CLINIC</p>
+    <h2 class="cl-h rv" style="font-size:clamp(2rem,5vw,5rem)">오블리브의원과<br>피오랩스가<br><em>함께 만드는 것</em></h2>
+    <p class="cl-p rv">본 제안서에 대한 문의 및 미팅 요청을 기다립니다.</p>
+    <a href="mailto:inc.polabs@gmail.com" class="cta rv">미팅 요청하기</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap ft">
+    <span class="ft-brand">POLABS</span>
+    <span class="ft-meta">© 2026 피오랩스 — 오블리브의원 마케팅 전략 제안서. 본 제안서의 모든 내용은 기밀입니다.</span>
+  </div>
+</footer>
+
+<script>
+// Loader
+window.addEventListener('load',()=>{
+  setTimeout(()=>document.getElementById('loader').classList.add('gone'),2400);
+});
+
+// Nav scroll
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>60);
+});
+
+// Reveal
+const obs=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')});
+},{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+// Cursor
+const cd=document.getElementById('cd'),cr=document.getElementById('cr');
+let mx=0,my=0,cx=0,cy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.left=mx+'px';cd.style.top=my+'px'});
+(function loop(){cx+=(mx-cx)*.12;cy+=(my-cy)*.12;cr.style.left=cx+'px';cr.style.top=cy+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,.cl-card,.si,.prs,.is-card,.crm-ch,.glb-ch,.pc').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cr.style.width='56px';cr.style.height='56px';cr.style.borderColor='rgba(196,168,122,.8)'});
+  el.addEventListener('mouseleave',()=>{cr.style.width='36px';cr.style.height='36px';cr.style.borderColor='rgba(196,168,122,.5)'});
+});
+</script>
+</body>
+</html>
